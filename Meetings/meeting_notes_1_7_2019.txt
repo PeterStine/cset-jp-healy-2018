@@ -1,0 +1,27 @@
+Meeting Notes 1/7/2019
+
+Attendees: Kyle, Shaun, Peter
+
+Kyle will send out doodle poll to set aside meeting to include only team
+members.
+
+Peter received transcievers and will begin testing on Arduino in accordance
+with project schedule document. Open source softare from the git repo listed
+below will be adapted to fit junior project requirements.
+
+	https://github.com/LowPowerLab/RFM69.git
+
+Peter will also take minutes for meetings. At the next team meeting, Peter
+will prepare instructions for uploading code to Github as per
+policies specified in https://github.com/cset-jp-healy-2018/main.cpp
+
+Shaun received ultrasonic transducers to begin testing on Arduino.
+
+Meeting with Healy will require further discussion and is TBD.
+
+Pickit 4 is fully validated only for MplabX 5.10
+
+Simulator tool is not as fully featured for PIC32MZ-2048-HMZ-144.
+
+Construction of Sensor unit circuit board should be regarded as a priority,
+but the project plan shall dictate sequence of tasks overall.
