@@ -5,9 +5,12 @@
 
 void touch_hw_init()
 {
-    //Set Chip Select Low
     LATFbits.LATF5 = 1;
     TRISFbits.TRISF5 = 0;
+    
+    //Set Chip Select Low
+    LATFCLR = _PORTF_RF5_MASK;
+    
     //Setup IRQ Pin
     TRISFbits.TRISF4 = 1;
     CNENFbits.CNIEF4 = 1;
@@ -16,7 +19,7 @@ void touch_hw_init()
     IPC30bits.CNFIP = 6;
     
     //Set Chip Select High
-    LATFCLR = _PORTF_RF5_MASK;
+    LATFSET = _PORTF_RF5_MASK;
     
     //Send Init Byte (0x90)
     touch_SPISend(TINIT);
@@ -25,15 +28,16 @@ void touch_hw_init()
 int touch_SPISend(uint8_t dataOut)
 {
     //Set Chip Select High
-    
+    LATFSET = _PORTF_RF5_MASK;
     //Set Chip Select Low
-    
+    LATFCLR = _PORTF_RF5_MASK;
     //Send 
     SPI4BUF = dataOut;
     
     //Delay 2 ms
     
     //Set CS High
+    LATFSET = _PORTF_RF5_MASK;
     
     return SPI4BUF;
 }
@@ -45,7 +49,7 @@ int touch_getX()
     x = touch_SPISend(0x90);
     
     //Conversion Logic
-    
+    x = ((x - Xmin)* LCD_W)/(Xmax-Xmin)
     
     if (x<=0) x = 0;
     if (x >= LCD_W) x = LCD_W;

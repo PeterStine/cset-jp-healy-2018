@@ -14,8 +14,7 @@ extern "C" {
 
 #define TINIT 0x90
 #define LCD_W 240
-#define LCD_H 320
-    
+#define LCD_H 320   
     
     void touch_hw_init();
     int touch_SPISend(uint8_t dataOut);
