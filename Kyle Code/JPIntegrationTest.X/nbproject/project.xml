@@ -6,7 +6,7 @@
             <name>JPIntegrationTest</name>
             <creation-uuid>2019c5df-3db9-44de-bbc7-a85713a89780</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <asminc-extensions/>
@@ -14,6 +14,7 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>../../ControlPanel</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

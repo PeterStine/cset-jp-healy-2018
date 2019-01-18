@@ -1,4 +1,4 @@
-/* Author: 			Peter Stine, <others>
+/* Author: 			Peter Stine
  * Date Created:		12/17/18
  * Last Modification Date:	12/17/18
  * Filename:			rfm.c
@@ -10,4 +10,19 @@
  *
 */
 
+#include <xc.h>
+#include "RFM69registers.h"
+
+void transmitter_test(void)
+{
+    
+    uint8_t STATE = 0;
+    
+    switch(STATE) {
+        case 0:
+            break;
+        case 1:
+            break;
+    }
+}
 
