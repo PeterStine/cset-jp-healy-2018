@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>LCD_Driver.h</itemPath>
       <itemPath>RTC2.h</itemPath>
+      <itemPath>Touch/Touch_Driver.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,9 +18,9 @@
       <itemPath>LCD_Driver.cpp</itemPath>
       <itemPath>LCD_Test.cpp</itemPath>
       <itemPath>RTC2.cpp</itemPath>
-      <itemPath>TOUCH_Driver.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>data.S</itemPath>
+      <itemPath>Touch/Touch_Driver.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
