@@ -6,7 +6,11 @@
                    projectFiles="true">
       <itemPath>LCD_Driver.h</itemPath>
       <itemPath>RTC2.h</itemPath>
+<<<<<<< HEAD
       <itemPath>Touch/Touch_Driver.h</itemPath>
+=======
+      <itemPath>../../ControlPanel/RFM69registers.h</itemPath>
+>>>>>>> 35a4ca02f2a70f4385db2b7a718c97d9354eb004
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -20,7 +24,12 @@
       <itemPath>RTC2.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>data.S</itemPath>
+<<<<<<< HEAD
       <itemPath>Touch/Touch_Driver.c</itemPath>
+=======
+      <itemPath>../../ControlPanel/rfm.c</itemPath>
+      <itemPath>../../ControlPanel/rfm.cpp</itemPath>
+>>>>>>> 35a4ca02f2a70f4385db2b7a718c97d9354eb004
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -30,6 +39,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
+    <Elem>../../ControlPanel</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -41,7 +51,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pk4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.10</languageToolchainVersion>
+        <languageToolchainVersion>2.15</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -71,6 +81,8 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="../../ControlPanel/rfm.c" ex="true" overriding="false">
+      </item>
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
