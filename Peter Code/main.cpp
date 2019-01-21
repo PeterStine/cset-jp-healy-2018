@@ -29,7 +29,7 @@
  */
 int main(int argc, char** argv) {
 
-    
+    // SequencerOff in RegOpMode = 1
     
     return 0;
 }
