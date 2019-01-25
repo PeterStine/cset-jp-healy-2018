@@ -1,0 +1,9 @@
+Preliminary Meeting agenda created: 1/24/19
+Agenda purposed for a meeting taking place on: 1/25/19 @ 3PM
+
+3 PM meeting
+Peter will bring transceivers to drop off in locker and potentially test on
+PIC32MZ
+Colin will bring cutters and drill
+Bring breadboards
+Cover cleaning up github repo
