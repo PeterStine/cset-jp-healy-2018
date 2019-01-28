@@ -22,6 +22,9 @@
 
 int main()
 {
-	// Run functions here.
+	// Setup SPI
+    // Send data payload
+    // Trigger interrupt for when data is received
+    
 	return 0;
 }
