@@ -4,7 +4,7 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>UART</name>
-            <creation-uuid>7010a7eb-c664-4dcb-b3c7-a69a2bf6af62</creation-uuid>
+            <creation-uuid>21f86ded-ef65-4318-91de-cca8be840365</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>

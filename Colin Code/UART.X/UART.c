@@ -1,43 +1,35 @@
 #include <xc.h>
-#include <sys/attribs.h>
+#include "UART.h"
 
-// PIC32MZ2048ECG144 Configuration Bit Settings
-// DEVCFG2
-#pragma config FPLLIDIV = DIV_2         // System PLL Input Divider (2x Divider) 12MHz/2 = 6MHz
-#pragma config FPLLRNG = RANGE_5_10_MHZ // System PLL Input Range (5-10 MHz Input)
-#pragma config FPLLICLK = PLL_POSC      // System PLL Input Clock Selection (POSC is input to the System PLL)
-#pragma config FPLLMULT = MUL_112       // System PLL Multiplier (PLL Multiply by 112) 6MHz * 112 = 672MHz
-#pragma config FPLLODIV = DIV_8         // System PLL Output Clock Divider (8x Divider) 672MHz / 8 = 84MHz
-#pragma config UPLLFSEL = FREQ_12MHZ    // USB PLL Input Frequency Selection (USB PLL input is 12 MHz)
-#pragma config UPLLEN = OFF             // USB PLL Enable (USB PLL is disabled)
-
-// DEVCFG1
-#pragma config FNOSC = SPLL             // Oscillator Selection Bits (Primary Osc (HS,EC))
-#pragma config FSOSCEN = OFF            // Secondary Oscillator Enable (Disable SOSC)
-#pragma config POSCMOD = HS             // Primary Oscillator Configuration (HS osc mode)
-#pragma config FCKSM = CSDCMD           // Clock Switching and Monitor Selection (Clock Switch Disabled, FSCM Disabled)
-#pragma config FWDTEN = OFF             // Watchdog Timer Enable (WDT Disabled)
-#pragma config FDMTEN = OFF             // Deadman Timer Enable (Deadman Timer is disabled)
-
-// DEVCFG0
-#pragma config JTAGEN = OFF             // JTAG Enable (JTAG Disabled)
-#pragma config ICESEL = ICS_PGx2        // ICE/ICD Comm Channel Select (Communicate on PGEC2/PGED2)
-
-// Initialized UART, and enables DMA transfers to the UART_BUFFER array.
-int UART_INIT(void) {
+// Configures the UART and DMA module for character storage
+void UART_CONFIG(void){
     
+    
+    //IEC3SET = 0x20000; // Enable receive interrupt IFS3
+    //IPC28SET = 0x1C00; // Set receive priority = 7
+    
+    //*** UART Initialization *** 
     TRISHCLR = 0x700;  // Set PORTH8-11 output
-    //U1MODESET = 0x200; // Set UEN to RTS and CTS enabled and used
-    
-    CNPUHSET = 0x78;
-    ANSELH = 0x0;
+    U1MODESET = 0x200; // Set UEN to RTS and CTS enabled and used
+    U1STACLR = 0xC0C0; // Clear RXsel and TXsel
+    U1STASET = 0x8000; // TXsel: while not empty, RXsel: while > 1 character
+    U1MODESET = 0x10; // RX invert
+    U1MODESET = 0x800; // simplex mode
+    U1BRG = 0x222; // 9600 baud
+    //U1STASET = 0x400;  // Set TX enable
+    U1STASET = 0x1000; // Set RX enable
+    U1MODESET = 0x8000; // Turn UART1 on 
     
     // PPS
     RPD11R = 0x1; // Select output pin RPD11 for U1TX
     U1RXR = 0xE; // Select input pin RPD6 for U1RX
+    RPD5R = 0x1; // Select output pin RPD5 for U1RTS
+    U1CTSR = 0x4; // Select input pin RPD4 for U1CTS
+
+    // Enable prefetch and set waitstates to 1
+    PRECON = (1 & _PRECON_PFMWS_MASK) | ((2 << _PRECON_PREFEN_POSITION) & _PRECON_PREFEN_MASK); 
     
-    PRECON = (1 & _PRECON_PFMWS_MASK) | ((2 << _PRECON_PREFEN_POSITION) & _PRECON_PREFEN_MASK); // Enable prefetch and set waitstates to 1
-    
+    //*** Oscillator Configuration ***
     SYSKEY = 0;
     SYSKEY = 0xAA996655;
     SYSKEY = 0x556699AA;
@@ -45,48 +37,51 @@ int UART_INIT(void) {
     PB3DIVSET = 0x107F; // Divide by 128 (656,250 Hz))
     SYSKEY = 0;
     
-    // U1MODE
-    //TMR1 = 1280; // half second period
+    //*** Timer Configuration ***
+    T1CONSET = 0x30; // Timer 1 prescale = 256: 2,563 Hz
+    T2CONSET = 0x30; // Timer 2 prescale = 256: 2,563 Hz
     
-    U1MODESET = 0x10; // RX invert
-    U1MODESET = 0x800; // simplex mode
-    U1BRG = 0x222; // BRG = 181, BR = 115,384 baud
-    
-    U1STACLR = 0xC; // RXISEL = 0
-    IEC3SET = 0x20000; // Enable receive interrupt IFS3
-    IPC28SET = 0x1C00; // Set receive priority = 7
-    IPC28SET = 0x1C0000;
-    INTCONSET = 0x1000;
-    
-    //U1STASET = 0x400;  // Set TX e
-    U1STASET = 0x1000; // Set RX enable
-    U1MODESET = 0x8000; // Turn UART1 on
-    
-    asm("ei");
-    
-    //U1TXREG = 0x65;
-    
-    LATHCLR = 0x700; // Turn LEDs off
-    
-    /* This code example illustrates the DMA channel 0 configuration for a data transfer. */
-    IEC1CLR=0x00010000; // disable DMA channel 0 interrupts
-    IFS1CLR=0x00010000; // clear existing DMA channel 0 interrupt flag
-    
+    //*** DMA Configuration ***
     DMACONSET=0x00008000; // enable the DMA controller
-    
-    DCH0CON=0x3; // channel off, priority 3, no chaining
+    // DCH0ECON
+    // DMAADDR
+    // DCH0CON
+    DCH0CONSET = 0x3; // Channel 0 priority 3
+    DCH0CONSET = 0x80; // Channel 0 enabled
     DCH0ECONbits.CHSIRQ = 113; // U1RX vector triggers transfer event
+    //DCH0ECONbits.CHAIRQ = 134; // Abort triggered by channel complete
     DCH0ECONSET = 0x10; // Enable IRQ trigger
     
     // program the transfer
-    DCH0SSA = 0x1F822030 // Physical location of U1RXREG
-    DCH0DSA = (0x1FFFFFFF & &UART_BUFFER); // transfer destination physical address
+    DCH0SSA = 0x1F822030; // Physical location of U1RXREG
+    DCH0DSA = (0x1FFFFFFF & (uint32_t)UART_BUF); // transfer destination physical address
     
     DCH0SSIZ = 0x1; // source size 1 bytes
-    DCH0DSIZ = 0x8; // destination size 8 bytes
+    DCH0DSIZ = BUFFER_SIZE; // destination size 8192 bytes
     DCH0CSIZ = 0x1; // 1 bytes transferred per event
+    // DCH0INT
+    DCH0INTCLR = 0x00ff00ff; // clear existing events, disable all interrupts
     
-    DCH0INTCLR=0x00ff00ff; // clear existing events, disable all interrupts
-    DCH0CONSET=0x80; // turn channel on
+    DCH0CONbits.CHAEN = 0x1;
+    
+    DCH0CONSET = 0x80; // turn channel on
 
+}
+// Copies the current contents of the UART buffer into the public 40 Byte array,
+// then returns the pointer to the beginning of this array.
+uint8_t * UART_GET_BUFFER(void) {
+    
+    DCH0CONbits.CHEN = 0x0; // Disable channel to prevent writes
+    while(DCH0CONbits.CHBUSY == 0x1) { asm("nop"); } // Wait for transfer to complete
+    
+    uint8_t i = 0;
+    while(i < BUFFER_SIZE){
+        UART_PUBLIC_BUFFER[i] = UART_BUF[i]; // Copy the contents of the buffer to the public one
+        i++;
+    }
+    
+    DCH0CONbits.CHEN = 0x1; // Re-enable the channel
+    
+    return (UART_PUBLIC_BUFFER); // return the starting address of the buffer.
+    
 }
