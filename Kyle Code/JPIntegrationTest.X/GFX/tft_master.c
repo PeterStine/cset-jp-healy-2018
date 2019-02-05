@@ -45,7 +45,7 @@ void tft_init_hw(void) {
     //Setup SPI2 For Transmission
     //SPI Configuration
     //SPI Clock 2MHz 
-    SPI4BRG = 1;
+    SPI4BRG = 2;
     //Turn off AN3 in ANSELB<3>
     ANSELBCLR = 0x8;
     //Clear MSSEN Bit in SPI4CON<28>, CKE = 0, SMP = 0

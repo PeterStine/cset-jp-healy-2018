@@ -1,9 +1,31 @@
 //Kyle Frischman
 //Junior Project 
 
+
 #include <xc.h>
 #include <sys/attribs.h>
 #include "RTC2.h"
+
+
+#include "GFX/tft_master.h"
+#include "GFX/tft_gfx.h"
+
+
+#define LCD_Color ILI9340_GREY
+#define LCD_TXT ILI9340_WHITE 
+#define LCD_Width 240
+#define Time_H 12
+#define TIME_SPACE 12
+#define LCD_SEC 170
+#define LCD_MIN 150
+#define LCD_HR 130
+#define LCD_DAY 70
+#define LCD_MTH 50
+#define LCD_YR 30
+
+
+char buffer[20];
+extern char TIME_INIT[20];
 
 void app_clock(void)
 {
@@ -186,14 +208,7 @@ void app_clock(void)
                             //December ? Error State?
                         break; 
                     }
-                    
-                    
-                    
-                    /*clock_second = 0;
-                    clock_minute = 0;
-                    clock_hour = 0;
-                    clock_day++;
-                    clock_state = 5; */
+             
                 }
                 //New Day
                 else if (clock_second >= 59 && clock_minute >= 59 && clock_hour >= 24)
@@ -229,20 +244,20 @@ void app_clock(void)
             clock_state = 0;
             //Set Seconds
             clockfield_to_lcdstr(clock_second, 1);
-            //Move Cursor To Second Position ()
+            //Blink LED
             LED_LAT = !LED_LAT;
             //Write Current Second Value
-            
+            TimeUpdate(LCD_SEC, 0, TIME_SPACE, Time_H);
+    
              break;
              
          case 2:
              //Update Minute Display
              //Set Minutes
             clockfield_to_lcdstr(clock_minute, 1);
-            //Move Cursor To Minute Position (0x10)
-            
             //Write Current Minute Value
-            
+             TimeUpdate(LCD_MIN, 0, TIME_SPACE, Time_H);
+             
              //Go To State 1
              clock_state = 1;
              break;
@@ -253,49 +268,43 @@ void app_clock(void)
              //Set Hours
             clockfield_to_lcdstr(clock_hour, 0);
             //Move Cursor To Hour Position (0x86)
+            TimeUpdate(LCD_HR, 0, TIME_SPACE, Time_H);
             
-            //Write Current Hour Position
-            
-             //Go To State 2
-             clock_state = 2;
-             break;
+            //Go To State 2
+            clock_state = 2;
+            break;
              
         case 4:
              //Update Day
             clockfield_to_lcdstr(clock_day, 0);
-            //Move Cursor To Day Position 
-            
             //Write Current Day
+            TimeUpdate(LCD_DAY, 0, TIME_SPACE, Time_H);
             
-             //Go To State 3
-             clock_state = 3;
-             break;
+            //Go To State 3
+            clock_state = 3;
+            break;
              
              
         case 5:
              //Update Month
             clockfield_to_lcdstr(clock_month, 0);
-            //Move Cursor To Month Position (0x86)
+            //Set Month
+            TimeUpdate(LCD_MTH, 0, TIME_SPACE, Time_H);
             
-            //Write Current Month
-            
-             //Go To State 4
-             clock_state = 4;
-             break;
+            //Go To State 4
+            clock_state = 4;
+            break;
              
              
         case 6:
-            //Update Year Display
-            //Set Years
+            //Update Year
             clockfield_to_lcdstr(clock_year, 0);
-            //Move Cursor To Year Position
+            //Set Year
+            TimeUpdate(LCD_YR, 0, TIME_SPACE, Time_H);
             
-            //Write Current Year
-            
-             //Go To State 5
-             clock_state = 5;
-             break;     
-        
+            //Go To State 5
+            clock_state = 5;
+            break;     
      }
      
 }
@@ -321,23 +330,48 @@ void clock_month_inc (void)
 
 void lcd_time_init (void)
 {
+    //MUST be called AFTER LCD_Init
     //Set 'Time:    :  :  '
     
+    tft_fillRect(0,0,240,12,LCD_Color );
+    
+    tft_setCursor(0, 0);
+    tft_setTextColor(LCD_TXT );  
+    tft_setTextSize(1);
+    tft_writeString(TIME_INIT);
+    
+    //Set Month
+    tft_setCursor(LCD_MTH, 0);
+    clockfield_to_lcdstr(clock_month, 1);
+    tft_writeString(buffer);
+    
+    //Set Day
+    tft_setCursor(LCD_DAY, 0);
+    clockfield_to_lcdstr(clock_day, 1);
+    tft_writeString(buffer);
+    
+    //Set Year
+    tft_setCursor(LCD_YR, 0);
+    clockfield_to_lcdstr(clock_year, 1);
+    tft_writeString(buffer);
     
     //Set Hours
     clockfield_to_lcdstr(clock_hour, 0);
     //Move Cursor To Hour Position (0x86)
-
+    tft_setCursor(LCD_HR, 0);
+    tft_writeString(buffer);
     
     //Set Minutes
     clockfield_to_lcdstr(clock_minute, 1);
     //Move Cursor To Minute Position (0x10)
-
+    tft_setCursor(LCD_MIN, 0);
+    tft_writeString(buffer);
     
     //Set Seconds
     clockfield_to_lcdstr(clock_second, 1);
     //Move Cursor To Second Position (0x13)
-
+    tft_setCursor(LCD_SEC , 0);
+    tft_writeString(buffer);
 }
 
 void clockfield_to_lcdstr (int clockfield, int field_type)
@@ -359,14 +393,17 @@ void clockfield_to_lcdstr (int clockfield, int field_type)
     temp += 0x30;
     
     //Place In Buffer
-
+    buffer[0] = clockfield;
+    buffer[1] = temp;
+    buffer[2] = '\n';
+    
     //Return
 }
 
 void clock_init(void)
 {
     //Set Year
-    clock_year = 2019;
+    clock_year = 19;
     //Set Month
     clock_month = 1;        
     //Set Day
@@ -392,15 +429,24 @@ void timer_config(void)
     PR2 = 13036;
     
     //Set Timer 2 Priority to 4
-    IPC2SET = 0x1C00;
+    IPC2SET = 0x1000;
     
 }
 
 //Timer 1 ISR
-void __ISR_AT_VECTOR(_TIMER_2_VECTOR, IPL7SRS) TIMER1Handler(void)
+void __ISR_AT_VECTOR(_TIMER_2_VECTOR, IPL4SOFT) TIMER1Handler(void)
 {
     //Clear Flag
     IFS0bits.T2IF = 0;
     //Call Real Time Clock
     app_clock();
+}
+
+//Time Change Function
+void TimeUpdate(short x, short y, short w, short h)
+{
+    tft_fillRect(x,y,w,h,LCD_Color ); 
+    tft_setTextColor(LCD_TXT); 
+    tft_setCursor(x, 0);
+    tft_writeString(buffer);
 }

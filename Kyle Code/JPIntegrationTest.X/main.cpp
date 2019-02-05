@@ -44,12 +44,13 @@
 #include <xc.h>
 #include <sys/attribs.h>
 
+#include "Touch/Touch_Driver.h"
 #include "RTC2.h"
-#include "LCD_Driver.h"
+#include "LCD_Interface.h"
 
 int main(void)
 {
-        //PB2DIV = 84MHz (No Division)
+    //PB2DIV = 84MHz (No Division)
     //System PB2DIV Setup
     SYSKEY = 0; // Ensure lock
     SYSKEY = 0xAA996655; // Write Key 1
@@ -65,17 +66,20 @@ int main(void)
      //Enable Multi-Vector Mode
     INTCONSET = _INTCON_MVEC_MASK;
     
+    //Init LCD
+    LCD_Init();
+    
+    touch_hw_init();
+    
     //Init Clock
     clock_init();
     
-    
-    //Init LCD
-    Adafruit_ILI9341 LCD1;
-    
-    LCD1.begin();
+   lcd_time_init();
     
     //Timer Init
-    timer_config();
+   timer_config();
+   
+   
     
     //Enable Global Interrupts
     asm("ei");
@@ -88,12 +92,14 @@ int main(void)
     
     LED_TRIS = 0;   // LED set as output
     
-    
-    LCD1.fillscreen();
-    
+    //Scrensaver
+    ScreenSaver();
     while(1)
     {
-        //Run system?
+        //Run system
+        
+        //Call Test Function
+        
     }
     
     

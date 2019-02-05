@@ -1,4 +1,7 @@
 
+#ifndef RTC2_H
+#define RTC2_H
+
 #define HOUR_POS    0x87
 #define MIN_POS     0x8A
 #define SEC_POS     0x8D
@@ -25,3 +28,6 @@ void clockfield_to_lcdstr (int clockfield, int field_type);
 void clock_init(void);
 void timer_config(void);
 void app_clock(void);
+void TimeUpdate(short x, short y, short w, short h);
+
+#endif

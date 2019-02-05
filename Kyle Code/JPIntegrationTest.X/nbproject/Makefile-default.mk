@@ -57,31 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-<<<<<<< HEAD
-SOURCEFILES_QUOTED_IF_SPACED=LCD_Driver.cpp LCD_Test.cpp RTC2.cpp main.cpp data.S Touch/Touch_Driver.c
+SOURCEFILES_QUOTED_IF_SPACED=RTC2.cpp main.cpp data.S GFX/glcdfont.c GFX/tft_gfx.c GFX/tft_master.c LCD_Interface.c Touch/Touch_Driver.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/LCD_Driver.o ${OBJECTDIR}/LCD_Test.o ${OBJECTDIR}/RTC2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/Touch/Touch_Driver.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/LCD_Driver.o.d ${OBJECTDIR}/LCD_Test.o.d ${OBJECTDIR}/RTC2.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/data.o.d ${OBJECTDIR}/Touch/Touch_Driver.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/RTC2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/GFX/glcdfont.o ${OBJECTDIR}/GFX/tft_gfx.o ${OBJECTDIR}/GFX/tft_master.o ${OBJECTDIR}/LCD_Interface.o ${OBJECTDIR}/Touch/Touch_Driver.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/RTC2.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/data.o.d ${OBJECTDIR}/GFX/glcdfont.o.d ${OBJECTDIR}/GFX/tft_gfx.o.d ${OBJECTDIR}/GFX/tft_master.o.d ${OBJECTDIR}/LCD_Interface.o.d ${OBJECTDIR}/Touch/Touch_Driver.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/LCD_Driver.o ${OBJECTDIR}/LCD_Test.o ${OBJECTDIR}/RTC2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/Touch/Touch_Driver.o
+OBJECTFILES=${OBJECTDIR}/RTC2.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/GFX/glcdfont.o ${OBJECTDIR}/GFX/tft_gfx.o ${OBJECTDIR}/GFX/tft_master.o ${OBJECTDIR}/LCD_Interface.o ${OBJECTDIR}/Touch/Touch_Driver.o
 
 # Source Files
-SOURCEFILES=LCD_Driver.cpp LCD_Test.cpp RTC2.cpp main.cpp data.S Touch/Touch_Driver.c
-=======
-SOURCEFILES_QUOTED_IF_SPACED=LCD_Driver.cpp LCD_Test.cpp RTC2.cpp TOUCH_Driver.cpp main.cpp data.S ../../ControlPanel/rfm.cpp
-
-# Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/LCD_Driver.o ${OBJECTDIR}/LCD_Test.o ${OBJECTDIR}/RTC2.o ${OBJECTDIR}/TOUCH_Driver.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/_ext/1745657959/rfm.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/LCD_Driver.o.d ${OBJECTDIR}/LCD_Test.o.d ${OBJECTDIR}/RTC2.o.d ${OBJECTDIR}/TOUCH_Driver.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/data.o.d ${OBJECTDIR}/_ext/1745657959/rfm.o.d
-
-# Object Files
-OBJECTFILES=${OBJECTDIR}/LCD_Driver.o ${OBJECTDIR}/LCD_Test.o ${OBJECTDIR}/RTC2.o ${OBJECTDIR}/TOUCH_Driver.o ${OBJECTDIR}/main.o ${OBJECTDIR}/data.o ${OBJECTDIR}/_ext/1745657959/rfm.o
-
-# Source Files
-SOURCEFILES=LCD_Driver.cpp LCD_Test.cpp RTC2.cpp TOUCH_Driver.cpp main.cpp data.S ../../ControlPanel/rfm.cpp
->>>>>>> 35a4ca02f2a70f4385db2b7a718c97d9354eb004
+SOURCEFILES=RTC2.cpp main.cpp data.S GFX/glcdfont.c GFX/tft_gfx.c GFX/tft_master.c LCD_Interface.c Touch/Touch_Driver.c
 
 
 CFLAGS=
@@ -134,6 +120,30 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/GFX/glcdfont.o: GFX/glcdfont.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/glcdfont.o.d 
+	@${RM} ${OBJECTDIR}/GFX/glcdfont.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/glcdfont.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/glcdfont.o.d" -o ${OBJECTDIR}/GFX/glcdfont.o GFX/glcdfont.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/GFX/tft_gfx.o: GFX/tft_gfx.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/tft_gfx.o.d 
+	@${RM} ${OBJECTDIR}/GFX/tft_gfx.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/tft_gfx.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/tft_gfx.o.d" -o ${OBJECTDIR}/GFX/tft_gfx.o GFX/tft_gfx.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/GFX/tft_master.o: GFX/tft_master.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/tft_master.o.d 
+	@${RM} ${OBJECTDIR}/GFX/tft_master.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/tft_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/tft_master.o.d" -o ${OBJECTDIR}/GFX/tft_master.o GFX/tft_master.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/LCD_Interface.o: LCD_Interface.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/LCD_Interface.o.d 
+	@${RM} ${OBJECTDIR}/LCD_Interface.o 
+	@${FIXDEPS} "${OBJECTDIR}/LCD_Interface.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LCD_Interface.o.d" -o ${OBJECTDIR}/LCD_Interface.o LCD_Interface.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
 ${OBJECTDIR}/Touch/Touch_Driver.o: Touch/Touch_Driver.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/Touch" 
 	@${RM} ${OBJECTDIR}/Touch/Touch_Driver.o.d 
@@ -141,6 +151,30 @@ ${OBJECTDIR}/Touch/Touch_Driver.o: Touch/Touch_Driver.c  nbproject/Makefile-${CN
 	@${FIXDEPS} "${OBJECTDIR}/Touch/Touch_Driver.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Touch/Touch_Driver.o.d" -o ${OBJECTDIR}/Touch/Touch_Driver.o Touch/Touch_Driver.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 else
+${OBJECTDIR}/GFX/glcdfont.o: GFX/glcdfont.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/glcdfont.o.d 
+	@${RM} ${OBJECTDIR}/GFX/glcdfont.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/glcdfont.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/glcdfont.o.d" -o ${OBJECTDIR}/GFX/glcdfont.o GFX/glcdfont.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/GFX/tft_gfx.o: GFX/tft_gfx.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/tft_gfx.o.d 
+	@${RM} ${OBJECTDIR}/GFX/tft_gfx.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/tft_gfx.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/tft_gfx.o.d" -o ${OBJECTDIR}/GFX/tft_gfx.o GFX/tft_gfx.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/GFX/tft_master.o: GFX/tft_master.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/GFX" 
+	@${RM} ${OBJECTDIR}/GFX/tft_master.o.d 
+	@${RM} ${OBJECTDIR}/GFX/tft_master.o 
+	@${FIXDEPS} "${OBJECTDIR}/GFX/tft_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/GFX/tft_master.o.d" -o ${OBJECTDIR}/GFX/tft_master.o GFX/tft_master.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/LCD_Interface.o: LCD_Interface.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/LCD_Interface.o.d 
+	@${RM} ${OBJECTDIR}/LCD_Interface.o 
+	@${FIXDEPS} "${OBJECTDIR}/LCD_Interface.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LCD_Interface.o.d" -o ${OBJECTDIR}/LCD_Interface.o LCD_Interface.c    -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
 ${OBJECTDIR}/Touch/Touch_Driver.o: Touch/Touch_Driver.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/Touch" 
 	@${RM} ${OBJECTDIR}/Touch/Touch_Driver.o.d 
@@ -152,18 +186,6 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compileCPP
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/LCD_Driver.o: LCD_Driver.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LCD_Driver.o.d 
-	@${RM} ${OBJECTDIR}/LCD_Driver.o 
-	@${FIXDEPS} "${OBJECTDIR}/LCD_Driver.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/LCD_Driver.o.d" -o ${OBJECTDIR}/LCD_Driver.o LCD_Driver.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
-${OBJECTDIR}/LCD_Test.o: LCD_Test.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LCD_Test.o.d 
-	@${RM} ${OBJECTDIR}/LCD_Test.o 
-	@${FIXDEPS} "${OBJECTDIR}/LCD_Test.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/LCD_Test.o.d" -o ${OBJECTDIR}/LCD_Test.o LCD_Test.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
 ${OBJECTDIR}/RTC2.o: RTC2.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/RTC2.o.d 
@@ -176,25 +198,7 @@ ${OBJECTDIR}/main.o: main.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
-${OBJECTDIR}/_ext/1745657959/rfm.o: ../../ControlPanel/rfm.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1745657959" 
-	@${RM} ${OBJECTDIR}/_ext/1745657959/rfm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1745657959/rfm.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1745657959/rfm.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/_ext/1745657959/rfm.o.d" -o ${OBJECTDIR}/_ext/1745657959/rfm.o ../../ControlPanel/rfm.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
 else
-${OBJECTDIR}/LCD_Driver.o: LCD_Driver.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LCD_Driver.o.d 
-	@${RM} ${OBJECTDIR}/LCD_Driver.o 
-	@${FIXDEPS} "${OBJECTDIR}/LCD_Driver.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE)  -g -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/LCD_Driver.o.d" -o ${OBJECTDIR}/LCD_Driver.o LCD_Driver.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
-${OBJECTDIR}/LCD_Test.o: LCD_Test.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LCD_Test.o.d 
-	@${RM} ${OBJECTDIR}/LCD_Test.o 
-	@${FIXDEPS} "${OBJECTDIR}/LCD_Test.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE)  -g -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/LCD_Test.o.d" -o ${OBJECTDIR}/LCD_Test.o LCD_Test.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
 ${OBJECTDIR}/RTC2.o: RTC2.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/RTC2.o.d 
@@ -206,12 +210,6 @@ ${OBJECTDIR}/main.o: main.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE)  -g -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
-	
-${OBJECTDIR}/_ext/1745657959/rfm.o: ../../ControlPanel/rfm.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1745657959" 
-	@${RM} ${OBJECTDIR}/_ext/1745657959/rfm.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1745657959/rfm.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1745657959/rfm.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CPPC} $(MP_EXTRA_CC_PRE)  -g -x c++ -c -mprocessor=$(MP_PROCESSOR_OPTION)  -frtti -fexceptions -fno-check-new -fenforce-eh-specs -MMD -MF "${OBJECTDIR}/_ext/1745657959/rfm.o.d" -o ${OBJECTDIR}/_ext/1745657959/rfm.o ../../ControlPanel/rfm.cpp   -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 endif
 
