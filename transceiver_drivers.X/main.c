@@ -46,15 +46,14 @@
 
 int main()
 {
-	
-    
+    transceiver_spi_init();
     /// Send data payload
     while(1)
     {
-        tft_spiwrite(0b110010100000000); // [1=write][address=0x25][data=0xff]
+        rfm_spiwrite(REG_OPMODE);
     }
     
-    // Trigger interrupt for when data is receivedNp 
+    // Trigger interrupt for when data is received
     
     
 	return 0;

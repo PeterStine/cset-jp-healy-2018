@@ -72,7 +72,8 @@ void transceiver_spi_init(void) {
     SPI1BRG = 0x8;
     
     //Turn off AN3 in ANSELB<3>
-    ANSELBCLR = 0x8;
+    ANSELBCLR = 0xC00;
+    
     //Clear MSSEN Bit in SPI4CON<28>, CKE = 0, SMP = 0
     SPI1CONCLR = 0x10000300;
     // CKP = 1
@@ -99,7 +100,7 @@ void transceiver_spi_init(void) {
 *      
 *
 ************************************************************************/
-void tft_spiwrite(uint32_t c){ // Transfer to SPI
+void rfm_spiwrite(uint32_t c){ // Transfer to SPI
     
     PORTGbits.RG1 = 0; // Set chip select low
     SPI1BUF = c;       // Write data to MOSI buffer
@@ -152,4 +153,7 @@ void transmit_buffer(uint32_t data)
     // transmitter is ready to transmit data.
     // Status and control registers can be found on table 6.3 page 66
     
+    // 5.2.2 SPI Interface Page 44
+    rfm_spiwrite(data);
+
 }

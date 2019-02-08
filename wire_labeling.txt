@@ -1,0 +1,4 @@
+Wires on Control Panel
+Orange = Power line
+Yellow = Ground
+
