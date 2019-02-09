@@ -23,7 +23,7 @@
 
 #include <xc.h>
 #include "RFM69registers.h"
-#include "transceiver.h"
+//#include "transceiver.h"
 
 #pragma config FPLLIDIV = DIV_2         // System PLL Input Divider (2x Divider) 12MHz/2 = 6MHz
 #pragma config FPLLRNG = RANGE_5_10_MHZ // System PLL Input Range (5-10 MHz Input)
@@ -46,13 +46,7 @@
 
 int main()
 {
-    transceiver_spi_init();
-    /// Send data payload
-    while(1)
-    {
-        rfm_spiwrite(REG_OPMODE);
-    }
-    
+   transceiver_spi_init();  
     // Trigger interrupt for when data is received
     
     
