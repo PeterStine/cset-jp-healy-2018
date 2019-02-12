@@ -47,8 +47,8 @@
 int main()
 {
    transceiver_spi_init();  
-    // Trigger interrupt for when data is received
-    
-    
+   
+
+   
 	return 0;
 }
